@@ -10,7 +10,6 @@ struct Person {
     age: usize,
 }
 
-// I AM NOT DONE
 // Your task is to complete this implementation
 // in order for the line `let p = Person::try_from("Mark,20")` to compile
 // and return an Ok result of inner type Person.
@@ -28,6 +27,21 @@ struct Person {
 impl TryFrom<&str> for Person {
     type Error = String;
     fn try_from(s: &str) -> Result<Self, Self::Error> {
+        let mut p: Person = Person {
+            name: "Mark".to_string(),
+            age: 20,
+        };
+        let v: Vec<&str> = s.split(',').collect();
+        if s.len() == 0 {
+            return Err("Error".to_string());
+        }
+        p.age = match v[1].parse() {
+            Ok(v) => v,
+            Err(e) => return Err("Error".to_string()),
+        };
+        p.name = v[0].to_string();
+        return Ok(p);
+
     }
 }
 
@@ -45,7 +59,7 @@ mod tests {
     use super::*;
     #[test]
     fn test_bad_convert() {
-        // Test that error is returned when bad string is provided
+        // Test that John is returned when bad string is provided
         let p = Person::try_from("");
         assert!(p.is_err());
     }

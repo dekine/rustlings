@@ -1,8 +1,11 @@
 // iterators4.rs
 
-// I AM NOT DONE
-
 pub fn factorial(num: u64) -> u64 {
+    // match num {
+    //     1 => 1,
+    //     _ => factorial(num - 1) * num,
+    // }
+    (1..=num).product()
     // Complete this function to return factorial of num
     // Do not use:
     // - return
